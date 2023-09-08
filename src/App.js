@@ -8,14 +8,13 @@ function App() {
   const [radius , setRadius] = useState(4);
   const [height , setHeight] = useState(5);
   const [arrPeaks, setArrPeaks] = useState(false);
-
+  
   useEffect(()=>{
+    console.log(`http://localhost:3001/triangulation?radius=${radius}&numberSegments=${numberSegments}`)
     fetch(`http://localhost:3001/triangulation?radius=${radius}&numberSegments=${numberSegments}`)
     .then(data => data.json())
     .then(data => setArrPeaks(data))
-  },[])
-
-  console.log(arrPeaks);
+  },[numberSegments,radius,height])
 
   return (
     <div className="App">

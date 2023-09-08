@@ -1,16 +1,16 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 const MyCanvas = ({arrPeaks, height}) => {
   const canvasRef = useRef(null);
-  
+  console.log(arrPeaks)
   useEffect(() => {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current });
     renderer.setSize(window.innerWidth, window.innerHeight);
-
+    
     const createTriangle = (point1, point2, point3) => {
       const geometry = new THREE.BufferGeometry();
       const positions = new Float32Array([
@@ -37,7 +37,7 @@ const MyCanvas = ({arrPeaks, height}) => {
 
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableRotate = true;
-    controls.enableZoom = true; // Включаем возможность отдаления камеры
+    controls.enableZoom = true;
     controls.maxPolarAngle = Math.PI / 2;
 
     const animate = () => {
@@ -51,7 +51,7 @@ const MyCanvas = ({arrPeaks, height}) => {
     return () => {
       renderer.dispose();
     };
-  }, []);
+  }, [arrPeaks]);
   
   useEffect(() => {
     const handleResize = () => {
